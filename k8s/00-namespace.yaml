@@ -1,0 +1,9 @@
+---
+# Namespace for all Spotify services
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: spotify
+  labels:
+    app: spotify-platform
+    environment: production

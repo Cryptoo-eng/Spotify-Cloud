@@ -1,0 +1,247 @@
+---
+# =============================================
+# MUSIC CATALOG SERVICE
+# =============================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: music-catalog-service
+  namespace: spotify
+  labels:
+    app: music-catalog-service
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: music-catalog-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: music-catalog-service
+        tier: backend
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values: ["music-catalog-service"]
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: music-catalog-service
+          image: spotify/music-catalog-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5002
+          env:
+            - name: SERVICE_VERSION
+              value: "1.0.0"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 5002
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 5002
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+            timeoutSeconds: 3
+          startupProbe:
+            httpGet:
+              path: /health/live
+              port: 5002
+            failureThreshold: 30
+            periodSeconds: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: music-catalog-service
+  namespace: spotify
+spec:
+  selector:
+    app: music-catalog-service
+  ports:
+    - port: 5002
+      targetPort: 5002
+  type: ClusterIP
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: music-catalog-hpa
+  namespace: spotify
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: music-catalog-service
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: music-catalog-pdb
+  namespace: spotify
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: music-catalog-service
+---
+# =============================================
+# PLAYER SERVICE
+# =============================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: player-service
+  namespace: spotify
+  labels:
+    app: player-service
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: player-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: player-service
+        tier: backend
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: player-service
+          image: spotify/player-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5003
+          env:
+            - name: SERVICE_VERSION
+              value: "1.0.0"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 5003
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 5003
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+            timeoutSeconds: 3
+          startupProbe:
+            httpGet:
+              path: /health/live
+              port: 5003
+            failureThreshold: 30
+            periodSeconds: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: player-service
+  namespace: spotify
+spec:
+  selector:
+    app: player-service
+  ports:
+    - port: 5003
+      targetPort: 5003
+  type: ClusterIP
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: player-service-hpa
+  namespace: spotify
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: player-service
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 65
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: player-service-pdb
+  namespace: spotify
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: player-service

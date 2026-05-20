@@ -1,0 +1,175 @@
+---
+# =============================================
+# AUTH SERVICE - Deployment + Service + HPA + PDB
+# =============================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: spotify
+  labels:
+    app: auth-service
+    tier: backend
+    version: "1.0.0"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Allow 1 extra pod during update
+      maxUnavailable: 0  # Never take down pods during update (zero-downtime)
+  template:
+    metadata:
+      labels:
+        app: auth-service
+        tier: backend
+        version: "1.0.0"
+    spec:
+      # Self-healing: restart on failure
+      restartPolicy: Always
+
+      # Graceful termination
+      terminationGracePeriodSeconds: 30
+
+      # Anti-affinity: spread replicas across different nodes
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values: ["auth-service"]
+                topologyKey: kubernetes.io/hostname
+
+      containers:
+        - name: auth-service
+          image: spotify/auth-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5001
+              name: http
+
+          # Environment variables from ConfigMap and Secret
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: spotify-secrets
+                  key: JWT_SECRET
+            - name: SERVICE_VERSION
+              value: "1.0.0"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+
+          # Resource limits - prevents noisy neighbor problems
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+
+          # LIVENESS PROBE: Kubernetes kills + restarts pod if this fails
+          # (self-healing: detects deadlocks, memory corruption, etc.)
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 5001
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 5
+
+          # READINESS PROBE: Kubernetes stops sending traffic if this fails
+          # (self-healing: pod is removed from load balancer during startup/overload)
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 5001
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 3
+
+          # STARTUP PROBE: Gives slow-starting containers time to initialize
+          startupProbe:
+            httpGet:
+              path: /health/live
+              port: 5001
+            failureThreshold: 30
+            periodSeconds: 2
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: spotify
+  labels:
+    app: auth-service
+spec:
+  selector:
+    app: auth-service
+  ports:
+    - port: 5001
+      targetPort: 5001
+      name: http
+  type: ClusterIP
+
+---
+# HORIZONTAL POD AUTOSCALER: Scales pods based on CPU usage
+# Self-healing: automatically adds capacity under load
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: auth-service-hpa
+  namespace: spotify
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: auth-service
+  minReplicas: 2
+  maxReplicas: 8
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+
+---
+# POD DISRUPTION BUDGET: Ensures minimum availability during voluntary disruptions
+# Self-healing: prevents too many pods from being drained simultaneously
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: auth-service-pdb
+  namespace: spotify
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: auth-service

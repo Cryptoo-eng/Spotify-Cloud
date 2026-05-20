@@ -1,0 +1,328 @@
+---
+# =============================================
+# RECOMMENDATION SERVICE
+# =============================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendation-service
+  namespace: spotify
+  labels:
+    app: recommendation-service
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: recommendation-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: recommendation-service
+        tier: backend
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: recommendation-service
+          image: spotify/recommendation-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5004
+          env:
+            - name: SERVICE_VERSION
+              value: "1.0.0"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 5004
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 5004
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+            timeoutSeconds: 3
+          startupProbe:
+            httpGet:
+              path: /health/live
+              port: 5004
+            failureThreshold: 30
+            periodSeconds: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendation-service
+  namespace: spotify
+spec:
+  selector:
+    app: recommendation-service
+  ports:
+    - port: 5004
+      targetPort: 5004
+  type: ClusterIP
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: recommendation-hpa
+  namespace: spotify
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: recommendation-service
+  minReplicas: 2
+  maxReplicas: 8
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: recommendation-pdb
+  namespace: spotify
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: recommendation-service
+---
+# =============================================
+# SEARCH SERVICE
+# =============================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-service
+  namespace: spotify
+  labels:
+    app: search-service
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: search-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: search-service
+        tier: backend
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: search-service
+          image: spotify/search-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5005
+          env:
+            - name: SERVICE_VERSION
+              value: "1.0.0"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 5005
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 5005
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+            timeoutSeconds: 3
+          startupProbe:
+            httpGet:
+              path: /health/live
+              port: 5005
+            failureThreshold: 30
+            periodSeconds: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: search-service
+  namespace: spotify
+spec:
+  selector:
+    app: search-service
+  ports:
+    - port: 5005
+      targetPort: 5005
+  type: ClusterIP
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: search-service-hpa
+  namespace: spotify
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: search-service
+  minReplicas: 2
+  maxReplicas: 12
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: search-service-pdb
+  namespace: spotify
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: search-service
+---
+# =============================================
+# USER SERVICE
+# =============================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: spotify
+  labels:
+    app: user-service
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: user-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: user-service
+        tier: backend
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: user-service
+          image: spotify/user-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5006
+          env:
+            - name: SERVICE_VERSION
+              value: "1.0.0"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 5006
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 5006
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+            timeoutSeconds: 3
+          startupProbe:
+            httpGet:
+              path: /health/live
+              port: 5006
+            failureThreshold: 30
+            periodSeconds: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: spotify
+spec:
+  selector:
+    app: user-service
+  ports:
+    - port: 5006
+      targetPort: 5006
+  type: ClusterIP
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: user-service-pdb
+  namespace: spotify
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: user-service
