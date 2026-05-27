@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify - Self-Healing Cloud Platform</title>
+    <title>CLONE SPOTIFY</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --spotify-black: #040404;
+            --spotify-black: #0eff12;
             --spotify-dark: #121212;
             --spotify-sidebar: #000000;
             --spotify-green: #1DB954;
@@ -18,11 +21,11 @@
             --spotify-light: #282828;
             --spotify-grey: #b3b3b3;
             --spotify-white: #ffffff;
-            
+
             --neon-blue: #00f0ff;
             --neon-pink: #ff007f;
             --neon-yellow: #ffeb3b;
-            --glass-bg: rgba(25xff, 255, 255, 0.03);
+            --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.05);
             --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
@@ -352,7 +355,7 @@
             opacity: 0;
             transform: translateY(8px);
             transition: opacity 0.3s, transform 0.3s;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
         .welcome-card:hover .play-hover-btn {
@@ -379,7 +382,7 @@
 
         .music-card {
             background: rgba(18, 18, 18, 0.6);
-            border: 1px solid rgba(255,255,255,0.02);
+            border: 1px solid rgba(255, 255, 255, 0.02);
             border-radius: 8px;
             padding: 16px;
             display: flex;
@@ -403,7 +406,7 @@
             align-items: center;
             justify-content: center;
             font-size: 64px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
             position: relative;
         }
 
@@ -459,7 +462,7 @@
         }
 
         .list-row:hover {
-            background-color: rgba(255,255,255,0.08);
+            background-color: rgba(255, 255, 255, 0.08);
         }
 
         .list-row-index {
@@ -545,7 +548,7 @@
             flex-wrap: wrap;
             gap: 32px;
             padding: 32px;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.4);
             border-radius: 12px;
             position: relative;
         }
@@ -595,9 +598,17 @@
         }
 
         @keyframes pulse-error {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .node-badge {
@@ -610,7 +621,7 @@
             font-weight: 800;
             padding: 2px 6px;
             border-radius: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
 
         .node-badge.replica-offline {
@@ -640,8 +651,8 @@
         }
 
         .stat-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             padding: 16px;
             text-align: center;
@@ -686,7 +697,7 @@
 
         .select-input {
             background: var(--spotify-light);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--spotify-white);
             padding: 12px;
             border-radius: 8px;
@@ -747,9 +758,35 @@
             transform: translateY(-2px);
         }
 
+        .chaos-btn-load {
+            background: linear-gradient(135deg, #00f0ff, #0072ff);
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .chaos-btn-load:hover {
+            box-shadow: 0 6px 20px rgba(0, 240, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .chaos-btn-load.active {
+            background: linear-gradient(135deg, #ffeb3b, #ff9900);
+            box-shadow: 0 0 25px rgba(255, 235, 59, 0.6);
+            animation: pulse-load 1s infinite alternate;
+        }
+
+        @keyframes pulse-load {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.03);
+            }
+        }
+
         /* Orchestrator Real-Time Event Log */
         .event-log-container {
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             padding: 16px;
@@ -777,15 +814,26 @@
             margin-right: 6px;
         }
 
-        .log-line.info span.sys-tag { color: var(--neon-blue); }
-        .log-line.warn span.sys-tag { color: var(--neon-yellow); }
-        .log-line.error span.sys-tag { color: var(--neon-pink); }
-        .log-line.success span.sys-tag { color: var(--spotify-green); }
+        .log-line.info span.sys-tag {
+            color: var(--neon-blue);
+        }
+
+        .log-line.warn span.sys-tag {
+            color: var(--neon-yellow);
+        }
+
+        .log-line.error span.sys-tag {
+            color: var(--neon-pink);
+        }
+
+        .log-line.success span.sys-tag {
+            color: var(--spotify-green);
+        }
 
         /* Kubectl recipe panel */
         .recipe-panel {
-            background: rgba(255,255,255,0.01);
-            border: 1px dashed rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 14px;
             margin-top: 16px;
@@ -851,7 +899,7 @@
             align-items: center;
             justify-content: center;
             font-size: 28px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .player-song-info {
@@ -933,7 +981,7 @@
         .progress-bar-bg {
             flex: 1;
             height: 4px;
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 2px;
             position: relative;
             cursor: pointer;
@@ -962,7 +1010,7 @@
         .volume-bar-bg {
             width: 100px;
             height: 4px;
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 2px;
             position: relative;
             cursor: pointer;
@@ -999,13 +1047,26 @@
             animation: bounce-bar 0.8s ease-in-out infinite alternate;
         }
 
-        .visualizer-bar:nth-child(2) { animation-delay: 0.15s; }
-        .visualizer-bar:nth-child(3) { animation-delay: 0.3s; }
-        .visualizer-bar:nth-child(4) { animation-delay: 0.45s; }
+        .visualizer-bar:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .visualizer-bar:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .visualizer-bar:nth-child(4) {
+            animation-delay: 0.45s;
+        }
 
         @keyframes bounce-bar {
-            0% { height: 15%; }
-            100% { height: 100%; }
+            0% {
+                height: 15%;
+            }
+
+            100% {
+                height: 100%;
+            }
         }
 
         /* Responsive */
@@ -1016,6 +1077,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="app-layout">
@@ -1024,18 +1086,27 @@
             <div class="logo-container">
                 <span>🟢</span> Spotify Cloud
             </div>
-            
+
             <nav class="nav-links">
                 <div class="nav-item active" onclick="switchView('home')" id="nav-home">
-                    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8zm8.5-7.5c-.28 0-.5.22-.5.5v6h-3v-6c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v6H6v-6c0-.28-.22-.5-.5-.5s-.5.22-.5.5v7c0 .55.45 1 1 1h5c.55 0 1-.45 1-1v-5h2v5c0 .55.45 1 1 1h5c.55 0 1-.45 1-1v-7c0-.28-.22-.5-.5-.5z"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8zm8.5-7.5c-.28 0-.5.22-.5.5v6h-3v-6c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v6H6v-6c0-.28-.22-.5-.5-.5s-.5.22-.5.5v7c0 .55.45 1 1 1h5c.55 0 1-.45 1-1v-5h2v5c0 .55.45 1 1 1h5c.55 0 1-.45 1-1v-7c0-.28-.22-.5-.5-.5z" />
+                    </svg>
                     Home
                 </div>
                 <div class="nav-item" onclick="switchView('search')" id="nav-search">
-                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                    </svg>
                     Search
                 </div>
                 <div class="nav-item" onclick="switchView('dashboard')" id="nav-dashboard">
-                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 14H5v-2h6v2zm0-4H5v-2h6v2zm0-4H5V7h6v2zm8 8h-6v-2h6v2zm0-4h-6v-2h6v2zm0-4h-6V7h6v2z"/></svg>
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 14H5v-2h6v2zm0-4H5v-2h6v2zm0-4H5V7h6v2zm8 8h-6v-2h6v2zm0-4h-6v-2h6v2zm0-4h-6V7h6v2z" />
+                    </svg>
                     Self-Healing Dashboard
                 </div>
             </nav>
@@ -1067,8 +1138,12 @@
                     </div>
                     <!-- Search Input (Only shown on search page) -->
                     <div class="search-input-container" id="header-search-container" style="display: none;">
-                        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                        <input type="text" class="search-input" id="search-box-input" placeholder="What do you want to listen to?" oninput="performSearch()">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                        </svg>
+                        <input type="text" class="search-input" id="search-box-input"
+                            placeholder="What do you want to listen to?" oninput="performSearch()">
                     </div>
                 </div>
 
@@ -1100,7 +1175,8 @@
                 <div class="search-results-section">
                     <h2 class="shelf-title" id="search-title">Search Tracks</h2>
                     <div class="results-list" id="search-results-list">
-                        <div style="color: var(--spotify-grey); padding: 20px 0;">Type above in the search box to search the library index...</div>
+                        <div style="color: var(--spotify-grey); padding: 20px 0;">Type above in the search box to search
+                            the library index...</div>
                     </div>
                 </div>
             </section>
@@ -1110,7 +1186,8 @@
                 <div class="welcome-section" style="margin-bottom: 0;">
                     <h1>Kubernetes Cluster Self-Healing Dashboard</h1>
                     <p style="color: var(--spotify-grey); margin-top: -12px; font-size: 15px;">
-                        Interactive monitor connecting to Kubernetes DNS service discovery. Kill nodes or trigger failovers to watch the scheduler orchestrate self-healing in real-time.
+                        Interactive monitor connecting to Kubernetes DNS service discovery. Kill nodes or trigger
+                        failovers to watch the scheduler orchestrate self-healing in real-time.
                     </p>
                 </div>
 
@@ -1120,8 +1197,11 @@
                         <div class="glass-card">
                             <div class="card-header-flex">
                                 <h3 style="font-size: 18px; font-weight: 700;">Active Infrastructure Node Map</h3>
-                                <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--spotify-grey);">
-                                    <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background-color: var(--spotify-green);"></span> Auto-Polling active (2s)
+                                <div
+                                    style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--spotify-grey);">
+                                    <span
+                                        style="display:inline-block; width:10px; height:10px; border-radius:50%; background-color: var(--spotify-green);"></span>
+                                    Auto-Polling active (2s)
                                 </div>
                             </div>
 
@@ -1153,12 +1233,17 @@
 
                         <!-- Real-time Event log (Styled like a console) -->
                         <div class="glass-card">
-                            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px; display:flex; justify-content:space-between;">
+                            <h3
+                                style="font-size: 16px; font-weight: 700; margin-bottom: 12px; display:flex; justify-content:space-between;">
                                 <span>Platform Orchestrator Event Log Stream</span>
-                                <button onclick="clearEventLogs()" style="background:transparent; border:none; color:var(--neon-blue); font-size:11px; cursor:pointer; font-family:inherit;">Clear logs</button>
+                                <button onclick="clearEventLogs()"
+                                    style="background:transparent; border:none; color:var(--neon-blue); font-size:11px; cursor:pointer; font-family:inherit;">Clear
+                                    logs</button>
                             </h3>
                             <div class="event-log-container" id="event-log-element">
-                                <div class="log-line success"><span class="timestamp">[19:18:02]</span><span class="sys-tag">[ORCHESTRATOR]</span> Initialized self-healing infrastructure. Listening for traffic.</div>
+                                <div class="log-line success"><span class="timestamp">[19:18:02]</span><span
+                                        class="sys-tag">[ORCHESTRATOR]</span> Initialized self-healing infrastructure.
+                                    Listening for traffic.</div>
                             </div>
                         </div>
                     </div>
@@ -1167,11 +1252,14 @@
                     <div class="glass-card chaos-panel">
                         <div class="chaos-title">Inject Chaos / Simulate Faults</div>
                         <p style="font-size: 13px; color: var(--spotify-grey); line-height: 18px; margin-top: -8px;">
-                            Trigger voluntary failures to verify Kubernetes restart policies, rolling updates, and autoscalers.
+                            Trigger voluntary failures to verify Kubernetes restart policies, rolling updates, and
+                            autoscalers.
                         </p>
 
                         <div class="target-selector-container">
-                            <label style="font-size: 12px; font-weight: 700; color: var(--spotify-grey); text-transform: uppercase;">Select Service Target</label>
+                            <label
+                                style="font-size: 12px; font-weight: 700; color: var(--spotify-grey); text-transform: uppercase;">Select
+                                Service Target</label>
                             <select class="select-input" id="chaos-service-selector">
                                 <option value="api-gateway">api-gateway (Gateway NodePort)</option>
                                 <option value="auth">auth-service (Authentication Service)</option>
@@ -1193,24 +1281,33 @@
                             <button class="chaos-btn chaos-btn-recover" onclick="injectChaos('recover')">
                                 🛡️ INSTANT MANUAL RECOVER
                             </button>
+                            <button class="chaos-btn chaos-btn-load" id="traffic-flood-btn"
+                                onclick="toggleTrafficFlood()">
+                                ⚡ FLOOD TRAFFIC (Trigger HPA/Scale)
+                            </button>
                         </div>
 
                         <div class="recipe-panel">
                             <div class="recipe-header">Run K8s Chaos recipes locally</div>
-                            <div style="font-size: 11px; color: var(--spotify-grey); margin-bottom: 8px; line-height: 16px;">
-                                Execute in your Minikube terminal to trigger a real pod restart and observe auto-recovery on this dashboard.
+                            <div
+                                style="font-size: 11px; color: var(--spotify-grey); margin-bottom: 8px; line-height: 16px;">
+                                Execute in your Minikube terminal to trigger a real pod restart and observe
+                                auto-recovery on this dashboard.
                             </div>
-                            
-                            <div style="font-size: 11px; font-weight: 700; margin-top: 10px;">Simulate Pod Failure:</div>
+
+                            <div style="font-size: 11px; font-weight: 700; margin-top: 10px;">Simulate Pod Failure:
+                            </div>
                             <div class="code-box">
                                 <span>kubectl -n spotify delete pod -l app=auth-service</span>
-                                <button onclick="navigator.clipboard.writeText('kubectl -n spotify delete pod -l app=auth-service')">Copy</button>
+                                <button
+                                    onclick="navigator.clipboard.writeText('kubectl -n spotify delete pod -l app=auth-service')">Copy</button>
                             </div>
 
                             <div style="font-size: 11px; font-weight: 700;">Simulate High-Traffic Scale Up:</div>
                             <div class="code-box">
                                 <span>kubectl -n spotify scale deployment player-service --replicas=6</span>
-                                <button onclick="navigator.clipboard.writeText('kubectl -n spotify scale deployment player-service --replicas=6')">Copy</button>
+                                <button
+                                    onclick="navigator.clipboard.writeText('kubectl -n spotify scale deployment player-service --replicas=6')">Copy</button>
                             </div>
                         </div>
                     </div>
@@ -1239,19 +1336,30 @@
             <div class="player-center">
                 <div class="player-controls">
                     <button class="control-btn" onclick="toggleShuffle()">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" />
+                        </svg>
                     </button>
                     <button class="control-btn" onclick="playPrevious()">
-                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+                        </svg>
                     </button>
                     <button class="control-btn control-btn-play" onclick="togglePlay()" id="player-play-btn">
-                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
                     </button>
                     <button class="control-btn" onclick="playNext()">
-                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6z" />
+                        </svg>
                     </button>
                     <button class="control-btn" id="repeat-btn" onclick="toggleRepeat()">
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" />
+                        </svg>
                     </button>
                 </div>
 
@@ -1266,7 +1374,10 @@
 
             <!-- Right Controls -->
             <div class="player-right">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                </svg>
                 <div class="volume-bar-bg" onclick="setVolume(event)">
                     <div class="volume-bar-fill" id="player-volume-bar" style="width: 80%;"></div>
                 </div>
@@ -1287,27 +1398,27 @@
         let apiCalls = 0;
         let failuresRecovered = 0;
         let trackingServices = {
-            "api-gateway": { healthy: true, replicas: 2, type: "gateway", ip: "10.96.200.1", version: "1.0.0" },
-            "auth": { healthy: true, replicas: 2, type: "backend", ip: "10.96.200.2", version: "1.0.0" },
-            "music-catalog": { healthy: true, replicas: 2, type: "backend", ip: "10.96.200.3", version: "1.0.0" },
-            "player": { healthy: true, replicas: 3, type: "backend", ip: "10.96.200.4", version: "1.0.0" },
-            "recommendation": { healthy: true, replicas: 2, type: "backend", ip: "10.96.200.5", version: "1.0.0" },
-            "search": { healthy: true, replicas: 2, type: "backend", ip: "10.96.200.6", version: "1.0.0" },
-            "user": { healthy: true, replicas: 2, type: "backend", ip: "10.96.200.7", version: "1.0.0" }
+            "api-gateway": { healthy: true, replicas: 4, type: "gateway", ip: "10.96.200.1", version: "1.0.0" },
+            "auth": { healthy: true, replicas: 3, type: "backend", ip: "10.96.200.2", version: "1.0.0" },
+            "music-catalog": { healthy: true, replicas: 4, type: "backend", ip: "10.96.200.3", version: "1.0.0" },
+            "player": { healthy: true, replicas: 5, type: "backend", ip: "10.96.200.4", version: "1.0.0" },
+            "recommendation": { healthy: true, replicas: 3, type: "backend", ip: "10.96.200.5", version: "1.0.0" },
+            "search": { healthy: true, replicas: 4, type: "backend", ip: "10.96.200.6", version: "1.0.0" },
+            "user": { healthy: true, replicas: 4, type: "backend", ip: "10.96.200.7", version: "1.0.0" }
         };
 
         // Welcome playlists array
         const defaultTracks = [
-            {"id": "trk_001", "title": "Blinding Lights", "artist_name": "The Weeknd", "album_title": "After Hours", "album_cover": "🌙", "duration_ms": 200000},
-            {"id": "trk_002", "title": "Save Your Tears", "artist_name": "The Weeknd", "album_title": "After Hours", "album_cover": "🌙", "duration_ms": 215000},
-            {"id": "trk_003", "title": "Anti-Hero", "artist_name": "Taylor Swift", "album_title": "Midnights", "album_cover": "⭐", "duration_ms": 200000},
-            {"id": "trk_004", "title": "Midnight Rain", "artist_name": "Taylor Swift", "album_title": "Midnights", "album_cover": "⭐", "duration_ms": 174000},
-            {"id": "trk_005", "title": "Champagne Poetry", "artist_name": "Drake", "album_title": "Certified Lover Boy", "album_cover": "💚", "duration_ms": 340000},
-            {"id": "trk_006", "title": "Happier Than Ever", "artist_name": "Billie Eilish", "album_title": "Happier Than Ever", "album_cover": "🌊", "duration_ms": 298000},
-            {"id": "trk_007", "title": "Bad Habits", "artist_name": "Ed Sheeran", "album_title": "Equals", "album_cover": "➕", "duration_ms": 231000},
-            {"id": "trk_008", "title": "Positions", "artist_name": "Ariana Grande", "album_title": "Positions", "album_cover": "♾️", "duration_ms": 172000},
-            {"id": "trk_009", "title": "Circles", "artist_name": "Post Malone", "album_title": "Hollywood's Bleeding", "album_cover": "🩸", "duration_ms": 215000},
-            {"id": "trk_010", "title": "Levitating", "artist_name": "Dua Lipa", "album_title": "Future Nostalgia", "album_cover": "🕺", "duration_ms": 203000}
+            { "id": "trk_001", "title": "Blinding Lights", "artist_name": "The Weeknd", "album_title": "After Hours", "album_cover": "🌙", "duration_ms": 200000 },
+            { "id": "trk_002", "title": "Save Your Tears", "artist_name": "The Weeknd", "album_title": "After Hours", "album_cover": "🌙", "duration_ms": 215000 },
+            { "id": "trk_003", "title": "Anti-Hero", "artist_name": "Taylor Swift", "album_title": "Midnights", "album_cover": "⭐", "duration_ms": 200000 },
+            { "id": "trk_004", "title": "Midnight Rain", "artist_name": "Taylor Swift", "album_title": "Midnights", "album_cover": "⭐", "duration_ms": 174000 },
+            { "id": "trk_005", "title": "Champagne Poetry", "artist_name": "Drake", "album_title": "Certified Lover Boy", "album_cover": "💚", "duration_ms": 340000 },
+            { "id": "trk_006", "title": "Happier Than Ever", "artist_name": "Billie Eilish", "album_title": "Happier Than Ever", "album_cover": "🌊", "duration_ms": 298000 },
+            { "id": "trk_007", "title": "Bad Habits", "artist_name": "Ed Sheeran", "album_title": "Equals", "album_cover": "➕", "duration_ms": 231000 },
+            { "id": "trk_008", "title": "Positions", "artist_name": "Ariana Grande", "album_title": "Positions", "album_cover": "♾️", "duration_ms": 172000 },
+            { "id": "trk_009", "title": "Circles", "artist_name": "Post Malone", "album_title": "Hollywood's Bleeding", "album_cover": "🩸", "duration_ms": 215000 },
+            { "id": "trk_010", "title": "Levitating", "artist_name": "Dua Lipa", "album_title": "Future Nostalgia", "album_cover": "🕺", "duration_ms": 203000 }
         ];
 
         // Init App
@@ -1315,11 +1426,11 @@
             setGreeting();
             populateHomeGrid();
             loadRecommendations();
-            
+
             // Start cluster map drawing and auto-polling
             drawClusterMap();
             setInterval(pollClusterHealth, 2000);
-            
+
             // Set dynamic current date/time to make greeting match context
             setInterval(setGreeting, 60000);
         });
@@ -1336,15 +1447,15 @@
         // Switch View Panels
         function switchView(viewName) {
             activeView = viewName;
-            
+
             // Update sidebar navigation UI
             document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
             document.getElementById("nav-" + viewName).classList.add("active");
-            
+
             // Update views visibility
             document.querySelectorAll(".view-panel").forEach(panel => panel.classList.remove("active"));
             document.getElementById("view-" + viewName).classList.add("active");
-            
+
             // Toggle top search input
             if (viewName === "search") {
                 document.getElementById("header-search-container").style.display = "flex";
@@ -1358,7 +1469,7 @@
         function populateHomeGrid() {
             const container = document.getElementById("welcome-grid-container");
             container.innerHTML = "";
-            
+
             // Take first 6 tracks
             defaultTracks.slice(0, 6).forEach(track => {
                 const card = document.createElement("div");
@@ -1379,7 +1490,7 @@
         function loadRecommendations() {
             const container = document.getElementById("recommendations-container");
             container.innerHTML = "";
-            
+
             // Fetch trending tracks via API gateway or fallback to mock
             apiCalls++;
             fetch("/api/catalog/trending")
@@ -1416,7 +1527,7 @@
         function performSearch() {
             const query = document.getElementById("search-box-input").value.trim();
             const container = document.getElementById("search-results-list");
-            
+
             if (!query) {
                 container.innerHTML = `<div style="color: var(--spotify-grey); padding: 20px 0;">Type above in the search box to search the library index...</div>`;
                 return;
@@ -1434,12 +1545,12 @@
                 })
                 .catch(() => {
                     // Local fuzzy match fallback when offline
-                    const results = defaultTracks.filter(t => 
-                        t.title.toLowerCase().includes(query.toLowerCase()) || 
+                    const results = defaultTracks.filter(t =>
+                        t.title.toLowerCase().includes(query.toLowerCase()) ||
                         t.artist_name.toLowerCase().includes(query.toLowerCase()) ||
                         t.album_title.toLowerCase().includes(query.toLowerCase())
                     );
-                    
+
                     if (results.length > 0) {
                         renderSearchResults(results);
                     } else {
@@ -1451,7 +1562,7 @@
         function renderSearchResults(results) {
             const container = document.getElementById("search-results-list");
             container.innerHTML = "";
-            
+
             results.forEach((track, index) => {
                 const row = document.createElement("div");
                 row.className = "list-row";
@@ -1482,7 +1593,7 @@
                 "pl_005": "🎯 Discover Weekly"
             };
             document.getElementById("search-title").innerText = playlistsNames[plId] || "Playlist Tracks";
-            
+
             apiCalls++;
             fetch(`/api/recommendations/playlists/${plId}`)
                 .then(res => res.ok ? res.json() : Promise.reject())
@@ -1504,16 +1615,16 @@
             isPlaying = true;
             playbackSession.position_ms = 0;
             playbackSession.duration_ms = track.duration_ms || 200000;
-            
+
             // Update bottom bar player UI
             document.getElementById("player-track-title").innerText = track.title;
             document.getElementById("player-track-artist").innerText = track.artist_name;
             document.getElementById("player-track-cover").innerText = track.album_cover || '🎵';
             document.getElementById("playback-time-total").innerText = formatTime(playbackSession.duration_ms);
-            
+
             document.getElementById("playback-visualizer").className = "visualizer-container playing";
             document.getElementById("player-play-btn").innerHTML = `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
-            
+
             // Sync with microservice
             apiCalls++;
             fetch(`/api/player/${currentUserId}/play`, {
@@ -1560,7 +1671,7 @@
                 document.getElementById("playback-visualizer").className = "visualizer-container playing";
                 document.getElementById("player-play-btn").innerHTML = `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
                 startPlaybackTicker();
-                
+
                 // REST API call to resume
                 fetch(`/api/player/${currentUserId}/play`, {
                     method: "PUT",
@@ -1571,7 +1682,7 @@
                 document.getElementById("playback-visualizer").className = "visualizer-container";
                 document.getElementById("player-play-btn").innerHTML = `<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
                 clearInterval(playInterval);
-                
+
                 // REST API call to pause
                 fetch(`/api/player/${currentUserId}/pause`, { method: "PUT" });
             }
@@ -1597,7 +1708,7 @@
             const pct = clickX / rect.width;
             playbackSession.position_ms = Math.floor(pct * playbackSession.duration_ms);
             updatePlaybackProgress();
-            
+
             // Update to API player
             fetch(`/api/player/${currentUserId}/play`, {
                 method: "PUT",
@@ -1611,7 +1722,7 @@
             const clickX = event.clientX - rect.left;
             const pct = Math.max(0, Math.min(100, Math.floor((clickX / rect.width) * 100)));
             document.getElementById("player-volume-bar").style.width = pct + "%";
-            
+
             // API calls to volume
             fetch(`/api/player/${currentUserId}/volume`, {
                 method: "PUT",
@@ -1620,26 +1731,34 @@
             });
         }
 
+        const mockUsers = [
+            { id: "usr_001", name: "John Doe (Premium)", avatar: "👨", tier: "Premium" },
+            { id: "usr_002", name: "Jane Smith (Free)", avatar: "👩", tier: "Free" },
+            { id: "usr_003", name: "Alice Johnson (Premium)", avatar: "👩‍💼", tier: "Premium" },
+            { id: "usr_004", name: "Bob Vance (Free)", avatar: "🧔", tier: "Free" },
+            { id: "usr_005", name: "Charlie Brown (Premium)", avatar: "👦", tier: "Premium" },
+            { id: "usr_006", name: "Diana Prince (Premium)", avatar: "🦸‍♀️", tier: "Premium" },
+            { id: "usr_007", name: "Emily Watson (Free)", avatar: "👱‍♀️", tier: "Free" },
+            { id: "usr_008", name: "Frank Miller (Premium)", avatar: "👨‍💻", tier: "Premium" }
+        ];
+        let currentUserIndex = 0;
+
         // Profile simulated login toggle
         function simulateLogin() {
             apiCalls++;
-            const name = document.getElementById("username-element").innerText;
-            if (name.includes("John")) {
-                currentUserId = "usr_002";
-                document.getElementById("username-element").innerText = "Jane Smith (Free)";
-                document.getElementById("avatar-element").innerText = "👩";
-                logOrchestratorEvent("info", "Switched active user profile context to Jane Smith (Free tier rules apply)");
-            } else {
-                currentUserId = "usr_001";
-                document.getElementById("username-element").innerText = "John Doe (Premium)";
-                document.getElementById("avatar-element").innerText = "👨";
-                logOrchestratorEvent("info", "Switched active user profile context to John Doe (Premium tier rules apply)");
-            }
+            currentUserIndex = (currentUserIndex + 1) % mockUsers.length;
+            const user = mockUsers[currentUserIndex];
+            currentUserId = user.id;
+
+            document.getElementById("username-element").innerText = user.name;
+            document.getElementById("avatar-element").innerText = user.avatar;
+
+            logOrchestratorEvent("info", `[AUTH] Switched active user profile context to ${user.name} (${user.tier} tier rules apply). Loaded customized recommendations.`);
             loadRecommendations();
         }
 
         // ================= DEVOPS ORCHESTRATION & CHAOS SYSTEM =================
-        
+
         // Draw the visual cluster node map
         function drawClusterMap() {
             const container = document.getElementById("cluster-map-element");
@@ -1648,10 +1767,21 @@
             Object.entries(trackingServices).forEach(([name, data]) => {
                 const node = document.createElement("div");
                 node.className = "node-container";
-                
+
+                const defaultLimits = {
+                    "api-gateway": 4,
+                    "auth": 3,
+                    "music-catalog": 4,
+                    "player": 5,
+                    "recommendation": 3,
+                    "search": 4,
+                    "user": 4
+                };
+                const specPods = defaultLimits[name] || 2;
+
                 let healthClass = "healthy";
                 if (!data.healthy) healthClass = "unreachable";
-                else if (data.replicas < 2 && data.type === "backend") healthClass = "degraded";
+                else if (data.replicas < specPods) healthClass = "degraded";
 
                 // Map emojis
                 const icons = {
@@ -1682,11 +1812,20 @@
             // Update numeric stats
             const totalServices = Object.keys(trackingServices).length;
             const healthyServices = Object.values(trackingServices).filter(s => s.healthy).length;
-            
+
             let totalPods = 0;
             let currentHealthyPods = 0;
-            Object.values(trackingServices).forEach(s => {
-                const specPods = s.type === "gateway" ? 2 : (s.name === "player" ? 3 : 2);
+            const defaultLimits = {
+                "api-gateway": 4,
+                "auth": 3,
+                "music-catalog": 4,
+                "player": 5,
+                "recommendation": 3,
+                "search": 4,
+                "user": 4
+            };
+            Object.entries(trackingServices).forEach(([name, s]) => {
+                const specPods = defaultLimits[name] || 2;
                 totalPods += specPods;
                 if (s.healthy) currentHealthyPods += s.replicas;
             });
@@ -1710,10 +1849,19 @@
                     Object.entries(trackingServices).forEach(([name, localData]) => {
                         const liveStatus = live[name];
                         if (liveStatus) {
+                            const defaultLimits = {
+                                "api-gateway": 4,
+                                "auth": 3,
+                                "music-catalog": 4,
+                                "player": 5,
+                                "recommendation": 3,
+                                "search": 4,
+                                "user": 4
+                            };
+                            const specReplicas = defaultLimits[name] || 2;
                             const newHealth = liveStatus.status === "healthy";
-                            const specReplicas = name === "player" ? 3 : 2;
                             let newReplicas = specReplicas;
-                            
+
                             // Check if degraded/unreachable
                             if (liveStatus.status === "unreachable") newReplicas = 0;
 
@@ -1742,17 +1890,27 @@
         // Mock Platform self-healing engine (triggers when not running in live k8s environment)
         function simulateSelfHealingPlatform() {
             let stateMutated = false;
+            const defaultLimits = {
+                "api-gateway": 4,
+                "auth": 3,
+                "music-catalog": 4,
+                "player": 5,
+                "recommendation": 3,
+                "search": 4,
+                "user": 4
+            };
             Object.entries(trackingServices).forEach(([name, service]) => {
+                const targetSpec = defaultLimits[name] || 2;
                 if (!service.healthy) {
                     // Random recovery mock ticker
                     if (Math.random() > 0.6) {
                         service.healthy = true;
-                        service.replicas = service.name === "player" ? 3 : 2;
+                        service.replicas = targetSpec;
                         stateMutated = true;
                         failuresRecovered++;
                         logOrchestratorEvent("success", `[SELF-HEALING] Kubernetes Pod Scheduler recreated failed pods for ${name}-deployment. Liveness probe passed (200 OK). Node RESTORED.`);
                     }
-                } else if (service.replicas < (name === "player" ? 3 : 2)) {
+                } else if (service.replicas < targetSpec) {
                     // Recover replica scale degraded
                     if (Math.random() > 0.5) {
                         service.replicas++;
@@ -1768,7 +1926,7 @@
         function injectChaos(actionType) {
             const serviceName = document.getElementById("chaos-service-selector").value;
             const service = trackingServices[serviceName];
-            
+
             if (!service) return;
 
             if (actionType === "crash") {
@@ -1778,24 +1936,114 @@
                 drawClusterMap();
 
                 // Trigger real backend chaos endpoints via API gateway (If gateway is routing)
-                fetch(`/api/${serviceName}/chaos/crash`, { method: 'POST' }).catch(() => {});
-            } 
+                fetch(`/api/${serviceName}/chaos/crash`, { method: 'POST' }).catch(() => { });
+            }
             else if (actionType === "degrade") {
                 logOrchestratorEvent("warn", `[CHAOS] Simulating memory-leak / heavy CPU contention on ${serviceName}-service. Replicas failing readiness probes.`);
                 service.replicas = 1;
                 drawClusterMap();
-                
+
                 // Degrade real backend endpoints via API gateway
-                fetch(`/api/${serviceName}/chaos/degrade`, { method: 'POST' }).catch(() => {});
-            } 
+                fetch(`/api/${serviceName}/chaos/degrade`, { method: 'POST' }).catch(() => { });
+            }
             else if (actionType === "recover") {
                 logOrchestratorEvent("success", `[CHAOS-CONTROL] Triggering immediate manual scheduler redeployment of ${serviceName}-service.`);
                 service.healthy = true;
-                service.replicas = serviceName === "player" ? 3 : 2;
+                const defaultLimits = {
+                    "api-gateway": 4,
+                    "auth": 3,
+                    "music-catalog": 4,
+                    "player": 5,
+                    "recommendation": 3,
+                    "search": 4,
+                    "user": 4
+                };
+                service.replicas = defaultLimits[serviceName] || 2;
                 drawClusterMap();
-                
+
                 // Recover real backend endpoints via API gateway
-                fetch(`/api/${serviceName}/chaos/recover`, { method: 'POST' }).catch(() => {});
+                fetch(`/api/${serviceName}/chaos/recover`, { method: 'POST' }).catch(() => { });
+            }
+        }
+
+        let loadInterval = null;
+        let isFlooding = false;
+
+        function toggleTrafficFlood() {
+            const btn = document.getElementById("traffic-flood-btn");
+            const targetSelect = document.getElementById("chaos-service-selector");
+            const serviceName = targetSelect.value;
+            const service = trackingServices[serviceName];
+
+            if (!service) return;
+
+            isFlooding = !isFlooding;
+
+            if (isFlooding) {
+                btn.innerText = "🛑 STOP TRAFFIC FLOOD";
+                btn.classList.add("active");
+                logOrchestratorEvent("warn", `[LOAD-BALANCER] Initiating traffic flood on target: ${serviceName}. Target replicas are experiencing heavy request load.`);
+
+                let requestsFired = 0;
+                loadInterval = setInterval(() => {
+                    apiCalls += 10;
+
+                    if (service.healthy) {
+                        const maxLimits = {
+                            "api-gateway": 10,
+                            "auth": 8,
+                            "music-catalog": 10,
+                            "player": 20,
+                            "recommendation": 8,
+                            "search": 12,
+                            "user": 12
+                        };
+                        const maxReplicas = maxLimits[serviceName] || 8;
+                        if (service.replicas < maxReplicas && Math.random() > 0.5) {
+                            service.replicas++;
+                            logOrchestratorEvent("success", `[AUTOSCALER] CPU load on ${serviceName}-service is high (88%). HPA triggered: scaling up replica group from ${service.replicas - 1} to ${service.replicas} pods to balance incoming traffic.`);
+                            drawClusterMap();
+                        }
+                    }
+
+                    // Fire concurrent actual fetches to the gateway and service endpoints
+                    for (let i = 0; i < 10; i++) {
+                        fetch(`/api/catalog/trending`).catch(() => { });
+                        fetch(`/api/${serviceName}/metrics`).catch(() => { });
+                    }
+
+                    requestsFired += 10;
+                    if (requestsFired % 100 === 0) {
+                        logOrchestratorEvent("info", `[LOAD-GENERATOR] Fired total of ${requestsFired} requests successfully to api-gateway. Load balanced across target replicas.`);
+                        drawClusterMap();
+                    }
+                }, 100);
+            } else {
+                btn.innerText = "⚡ FLOOD TRAFFIC (Trigger HPA/Scale)";
+                btn.classList.remove("active");
+                clearInterval(loadInterval);
+                logOrchestratorEvent("info", `[LOAD-BALANCER] Traffic flood terminated. High load cancelled. Cooling down replicator rules...`);
+
+                setTimeout(() => {
+                    if (!isFlooding && service.healthy) {
+                        const defaultLimits = {
+                            "api-gateway": 4,
+                            "auth": 3,
+                            "music-catalog": 4,
+                            "player": 5,
+                            "recommendation": 3,
+                            "search": 4,
+                            "user": 4
+                        };
+                        const targetReplicas = defaultLimits[serviceName] || 2;
+                        if (service.replicas > targetReplicas) {
+                            const oldReplicas = service.replicas;
+                            service.replicas = targetReplicas;
+                            logOrchestratorEvent("info", `[AUTOSCALER] CPU load cooled down to <30%. HPA automatically downscaled ${serviceName}-service from ${oldReplicas} to ${targetReplicas} replicas.`);
+                            drawClusterMap();
+                        }
+                    }
+                }, 5000);
             }
         }
 
@@ -1805,7 +2053,7 @@
             const time = new Date().toLocaleTimeString();
             const logLine = document.createElement("div");
             logLine.className = `log-line ${type}`;
-            
+
             let tag = "[SYSTEM]";
             if (type === "error") tag = "[FAIL]";
             else if (type === "warn") tag = "[WARN]";
@@ -1825,7 +2073,7 @@
         function showNodeDetails(name) {
             const data = trackingServices[name];
             if (!data) return;
-            
+
             logOrchestratorEvent("info", `Querying Node ${name.toUpperCase()} Metadata: IP=${data.ip}, Tier=${data.type.toUpperCase()}, Version=${data.version}, Specs=Memory limit 256Mi, CPU limit 500m.`);
         }
 
@@ -1838,4 +2086,5 @@
         }
     </script>
 </body>
+
 </html>

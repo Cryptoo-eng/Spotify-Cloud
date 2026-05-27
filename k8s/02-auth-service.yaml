@@ -145,7 +145,7 @@ spec:
     kind: Deployment
     name: auth-service
   minReplicas: 2
-  maxReplicas: 8
+  maxReplicas: 1000
   metrics:
     - type: Resource
       resource:
@@ -159,6 +159,12 @@ spec:
         target:
           type: Utilization
           averageUtilization: 80
+  behavior:
+    scaleUp:
+      policies:
+        - type: Percent
+          value: 1
+          periodSeconds: 60
 
 ---
 # POD DISRUPTION BUDGET: Ensures minimum availability during voluntary disruptions

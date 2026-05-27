@@ -16,6 +16,7 @@ $services = @(
 )
 
 foreach ($service in $services) {
+    $service = $service.Trim()
     Write-Host "🐳 Building Docker image for: $service..." -ForegroundColor Yellow
     $dir = Join-Path "services" $service
     if ($service -eq "music-catalog") {
@@ -23,7 +24,7 @@ foreach ($service in $services) {
     } elseif ($service -eq "frontend") {
         $tag = "spotify/spotify-frontend:latest"
     } else {
-        $tag = "spotify/$service:latest"
+        $tag = "spotify/${service}:latest"
     }
     
     docker build -t $tag $dir

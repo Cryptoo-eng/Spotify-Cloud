@@ -110,7 +110,7 @@ spec:
     kind: Deployment
     name: music-catalog-service
   minReplicas: 2
-  maxReplicas: 10
+  maxReplicas: 1000
   metrics:
     - type: Resource
       resource:
@@ -118,6 +118,12 @@ spec:
         target:
           type: Utilization
           averageUtilization: 70
+  behavior:
+    scaleUp:
+      policies:
+        - type: Percent
+          value: 1
+          periodSeconds: 60
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
@@ -226,7 +232,7 @@ spec:
     kind: Deployment
     name: player-service
   minReplicas: 3
-  maxReplicas: 20
+  maxReplicas: 1000
   metrics:
     - type: Resource
       resource:
@@ -234,6 +240,12 @@ spec:
         target:
           type: Utilization
           averageUtilization: 65
+  behavior:
+    scaleUp:
+      policies:
+        - type: Percent
+          value: 1
+          periodSeconds: 60
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget

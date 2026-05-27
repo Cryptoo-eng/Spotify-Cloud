@@ -95,7 +95,7 @@ spec:
     kind: Deployment
     name: recommendation-service
   minReplicas: 2
-  maxReplicas: 8
+  maxReplicas: 1000
   metrics:
     - type: Resource
       resource:
@@ -103,6 +103,12 @@ spec:
         target:
           type: Utilization
           averageUtilization: 70
+  behavior:
+    scaleUp:
+      policies:
+        - type: Percent
+          value: 1
+          periodSeconds: 60
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
@@ -211,7 +217,7 @@ spec:
     kind: Deployment
     name: search-service
   minReplicas: 2
-  maxReplicas: 12
+  maxReplicas: 1000
   metrics:
     - type: Resource
       resource:
@@ -219,6 +225,12 @@ spec:
         target:
           type: Utilization
           averageUtilization: 70
+  behavior:
+    scaleUp:
+      policies:
+        - type: Percent
+          value: 1
+          periodSeconds: 60
 ---
 apiVersion: policy/v1
 kind: PodDisruptionBudget
